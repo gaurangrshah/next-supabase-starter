@@ -3,11 +3,12 @@ Includes magiclink + email auth
 
 [demo](https://next-supabase-starter.vercel.app/)
 
-register for and create a new [supabase](www.supabase.io) database instance. 
-- use `.env.sample` as a boilerplate. 
+register for and create a new [supabase](www.supabase.io) database instance.
+- use `.env.sample` as a boilerplate.
 
 - [ ] implement social auth
 - [ ] verify token refresh flow
+- [ ] update docs
 
 
 
@@ -21,7 +22,7 @@ register for and create a new [supabase](www.supabase.io) database instance.
 
 #### Requirements
 
-Chakra UI requires the following packages: 
+Chakra UI requires the following packages:
 
 ```bash
 npm i @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^4
@@ -56,11 +57,11 @@ export default App;
 
 The custom theme file extends chakra's default theme with the following custom modules:
 
-- Global Styles: `./chakra/global-styles.js` 
+- Global Styles: `./chakra/global-styles.js`
 
   - defines all default styles related to the app, this includes: html, body, and some browser prefixes (such as focus-visible and default scrollbar)
 
-  
+
 
 - Color Modes:  `./chakra/color-modes.js`
 
@@ -72,12 +73,12 @@ The custom theme file extends chakra's default theme with the following custom m
 
     ```jsx
     import { useColor } from "@/chakra/hooks/use-color";
-    
+
     export const ErrorTag = ({children, ...rest }) => {
-     
+
       const { color } = useColor();
-      
-      
+
+
       return (
         <Box bg={color("danger")} {...rest}>
           {children}
@@ -86,7 +87,7 @@ The custom theme file extends chakra's default theme with the following custom m
     }
     ```
 
-    
+
 
 - Fonts: `./chakra/fonts.js`
 
@@ -109,28 +110,28 @@ The custom theme file extends chakra's default theme with the following custom m
     </Text>
     ```
 
-    
 
-  
+
+
 
 - layerStyles: `./chakra/layerStyles/bars.js`
 
-  - use to allow themeing for header and footer placeholders in the app scaffold 
+  - use to allow themeing for header and footer placeholders in the app scaffold
 
-    🔴 (-- see scaffold section below for more info) 
+    🔴 (-- see scaffold section below for more info)
 
-  
+
 
 - layouts : `./chakra/layouts`
 
   - used to expose different layouts if needed in the app -- currently renders the scaffold
-  - ☑️ TODO: merge layouts and scaffold components 
+  - ☑️ TODO: merge layouts and scaffold components
 
 
 
 #### Components
 
-`./chakra/components/*` includes components we've modified based on chakra components and components specifically used by the scaffold. 
+`./chakra/components/*` includes components we've modified based on chakra components and components specifically used by the scaffold.
 
 ##### `Alert` -  composes Chakra's alert dialog, used to display confimations messages
 
@@ -147,14 +148,14 @@ The custom theme file extends chakra's default theme with the following custom m
 
 ##### `MD-JSX` - Custom component exposes used to render markdown content
 
-- Uses `textStyles` to override the default styling for all markdown content. 
+- Uses `textStyles` to override the default styling for all markdown content.
 - Provides overrides for all text components (Text, Heading, etc)
 
 
 
 ##### `ModeToggle` - Custom component used to toggle color modes
 
-- used to switch between light and dark mode on the client side. 
+- used to switch between light and dark mode on the client side.
 
 
 
@@ -166,10 +167,10 @@ The custom theme file extends chakra's default theme with the following custom m
 
   ```jsx
   import { ShowJson } from "@/chakra/components/show-json";
-  
+
   export const Responser = ({}) => {
   	const [data, setData] = useState(initialData ?? null);
-                                     
+
   	useEffect(async () => {
       if (initialData || data) return;
       const response = await fetch(`https:/....`);
@@ -178,16 +179,16 @@ The custom theme file extends chakra's default theme with the following custom m
         logger.success("responser", response?.data);
       } else logger.error("responser");
     }, []);
-                                     
+
     return <ShowJson data={data} />;
   }
   ```
 
-  
+
 
 ##### `Spinner` - Composes chakra's default Spinner component inside of a Flex container
 
-- Instead of using chakra's spinner and worrying about centering it inside of each component this will automatically display centered in any component. 
+- Instead of using chakra's spinner and worrying about centering it inside of each component this will automatically display centered in any component.
 
 
 
@@ -203,7 +204,7 @@ The custom theme file extends chakra's default theme with the following custom m
 
   - Each of the place holders are defined in `@chakra/components/structure/bars`
 
-    - This file exposes two components `HeaderComponent` & `FooterComponent` 
+    - This file exposes two components `HeaderComponent` & `FooterComponent`
     - They are used to render the your custom header and footer which you can define in `./app.config.js`
 
   - USAGE: (how to compose your custom header from `./app.config.js`)
@@ -237,17 +238,17 @@ The custom theme file extends chakra's default theme with the following custom m
 
   ```jsx
   import MessageRouter from '@/components/message-router';
-  
+
   const App = ({ Component, pageProps, router }) => {
   	return (
     	<MessageRouter asPath={router.asPath}>
       	{children}
       </MessageRouter>
-    )  
+    )
   }
   ```
 
-  
+
 
 - on any route change you can add the query string:
 
@@ -256,7 +257,7 @@ The custom theme file extends chakra's default theme with the following custom m
   ?success=""
   ```
 
-  > any message passed along within the strings will be intercepted by the MessageRouter on any redirect event. If the query string includes the keyword "error" then an error notification is shown if it's success a success notification is shown. For any other queries MessageRouter will simply ignore the query and will essentially get bypassed. 
+  > any message passed along within the strings will be intercepted by the MessageRouter on any redirect event. If the query string includes the keyword "error" then an error notification is shown if it's success a success notification is shown. For any other queries MessageRouter will simply ignore the query and will essentially get bypassed.
   >
   > **NOTE**: You must ensure you're allowing notifications via `app.config.js` options or via localStorage.
 
@@ -269,10 +270,10 @@ The custom theme file extends chakra's default theme with the following custom m
   ```jsx
   import { useDisclosure } from "@chakra-ui/react";
   import {ChModal} from "@/components/modal"
-  
+
   const Example = ({children, ...rest}) => {
   	const { isOpen, onOpen, onClose } = useDisclosure();
-    
+
     return (
       <CHModal
         isOpen={isOpen}
@@ -295,7 +296,7 @@ The custom theme file extends chakra's default theme with the following custom m
   }
   ```
 
-  
+
 
 
 
@@ -319,25 +320,25 @@ The custom theme file extends chakra's default theme with the following custom m
 
   ```jsx
   import { useErrorDispatch } from "@/chakra/contexts/error-context";
-  
+
   export const Example = ({ children, ...rest }) => {
-    
+
     const { setError } = useErrorDispatch();
-    
+
     const handleSubmit = async (e) => {
       e.preventDefault();
       e.persist();
-      
+
       const response = await fetch(`http://...`)
-  
+
       if(response.error) setError(response.error)
     }
-    
+
     /*...*/
   }
   ```
 
-  
+
 
 ##### `ModalContext` - used to easily render dyanmic modals (UNUSED)
 
@@ -360,26 +361,26 @@ The custom theme file extends chakra's default theme with the following custom m
 
 ##### `ToastContext` - used to display toast messages
 
-- used by `ErrorContext`  under the hood to display error toasts. 
+- used by `ErrorContext`  under the hood to display error toasts.
 
-- exposes the `useToastDispatch()` hook. 
+- exposes the `useToastDispatch()` hook.
 
 - Usage:
 
   ```jsx
   import { useToastDispatch } from "@/chakra/contexts/toast-context";
-  
+
   export const Example = ({children, ...rest}) => {
-    
+
     const { setMsg } = useToastDispatch();
-    
+
     setMsg({
       description: parsedMsg,
       position: "bottom-right",
       title: "Error",
       status: "error",
     });
-  
+
     /*...*/
   }
   ```
@@ -394,11 +395,11 @@ The custom theme file extends chakra's default theme with the following custom m
 
   ```jsx
   import { useColor } from "@/chakra/hooks/use-color";
-  
+
   export const Example = ({children, ...rest}) => {
-  	
+
     const { color } = useColor();
-  
+
      return (
       <Box bg={color("bg")}>
         {children}
@@ -411,19 +412,19 @@ The custom theme file extends chakra's default theme with the following custom m
 
 ##### `useAlert` - used to trigger an alert confirmation dialog
 
-- composes chakra's default Alert component into a reusable modal 
+- composes chakra's default Alert component into a reusable modal
 
-- Exposes the Alert component that renders the message dialog and a handleConfirm callback 
+- Exposes the Alert component that renders the message dialog and a handleConfirm callback
 
 - use the handleConfirm callback to execute any action after user has confirmed their action in the modal dialog.
 
 - Usage: ☑️ TODO update usage example
 
   ```jsx
-  
+
   ```
 
-  
+
 
 
 
@@ -451,7 +452,7 @@ The custom theme file extends chakra's default theme with the following custom m
 
   ```jsx
   import { CustomIcon } from "@/chakra/icons/custom-icon";
-  
+
   export const Example = ({children, ...rest}) => {
     return (
     	<CustomIcon icon='add' color='gray.600' />
@@ -463,11 +464,11 @@ The custom theme file extends chakra's default theme with the following custom m
 
   ```jsx
   import { CustomIcon } from "@/chakra/icons/custom-icon";
-  
+
   export const Example = ({children, ...rest}) => {
-    
+
     const [isSubmitting, setIsSubmitting] = useState(false)
-    
+
     return (
       <IconButton
         type='submit'
@@ -485,11 +486,11 @@ The custom theme file extends chakra's default theme with the following custom m
 
   ```jsx
   import { CustomIcon } from "@/chakra/icons/custom-icon";
-  
+
   export const Example = ({children, ...rest}) => {
-    
+
     const [isLoading, setIsLoading] = useState(false)
-    
+
     return (
       <IconButton
         isLoading={isLoading}
@@ -508,7 +509,7 @@ The custom theme file extends chakra's default theme with the following custom m
   }
   ```
 
-  
+
 
 ### Framer-Motion
 
@@ -521,7 +522,7 @@ Used for interaction animations also required by chakra for transition component
   ```jsx
   import { Box, forwardRef } from "@chakra-ui/react";
   import { motion, isValidMotionProp } from "framer-motion";
-  
+
   export const MotionBox = motion(
     forwardRef((props, ref) => {
       const chakraProps = Object.fromEntries(
@@ -533,7 +534,7 @@ Used for interaction animations also required by chakra for transition component
   );
   ```
 
-  
+
 
 ### focus-visible
 
@@ -558,28 +559,28 @@ export const styles = {
 
 ### nprogress
 
-Page loader animation component. Shows a loading indicator at the top of each page, that fires on each route change event. Component is defined in `@/components/nprogress.js` 
+Page loader animation component. Shows a loading indicator at the top of each page, that fires on each route change event. Component is defined in `@/components/nprogress.js`
 
 **NOTE**: requires lodash's debounce method and uses styled-jsx to apply the necessary styles globally.
 
-- ☑️ TODO: add styles for nprogress to global styles. 
+- ☑️ TODO: add styles for nprogress to global styles.
 
 
 
 ### App Config
 
-`./app.config.js` is a file located at the root of the project directory. The purpose of this file is to allow for modularity in the application, without having to use global context or redux. 
+`./app.config.js` is a file located at the root of the project directory. The purpose of this file is to allow for modularity in the application, without having to use global context or redux.
 
-The functionality is still crude and is very much a work in progress. 
+The functionality is still crude and is very much a work in progress.
 **NOTE**: this topic is certainly open to discussion and criticism, as it is still in it's infancy.
 
-We'll cover the file in as much detail as needed, the file itself exposes a single module `appConfig`, but is made up of two separate parts. 
+We'll cover the file in as much detail as needed, the file itself exposes a single module `appConfig`, but is made up of two separate parts.
 
 - App Config - [details, routes, options]
 - Scaffold Config - [defaults]
 - Also there's a third part not yet implemented for SEO `appConfig.seo`
 
-The first part `App Config` - is used to set some basic details about the app. If you've ever used gatsby this concept is loosely based on the `gatsby-config.js` files used to configure gatsby projects. 
+The first part `App Config` - is used to set some basic details about the app. If you've ever used gatsby this concept is loosely based on the `gatsby-config.js` files used to configure gatsby projects.
 
 ```js
 const appConfig = {
@@ -606,7 +607,7 @@ const appConfig = {
 > - `details` - App details include title, description and urls.
 > - `routes` -  define all necessary routes for the application - instead of creating a routes file -- (this may not even be necessary in a next.js app and probably can be removed)
 > - `options` - sets up the configuration globally for things like error notifications and tooltips -- these options will also be persisted to local storage and can be updated from there giving you app-wide control over when to show or not show certain notifications.
->   - **NOTE**: these could be set up individually based on your environment so you could choose to only show error notifications in development virtually supressing them in production. 
+>   - **NOTE**: these could be set up individually based on your environment so you could choose to only show error notifications in development virtually supressing them in production.
 
 
 
@@ -641,7 +642,7 @@ appConfig.scaffold = {
 
 
 
-The final part is the `SEO Config` which has not been implemented as of yet, and will theoretically allow us to configure the SEO of each individual page on the fly. 
+The final part is the `SEO Config` which has not been implemented as of yet, and will theoretically allow us to configure the SEO of each individual page on the fly.
 
 
 
@@ -649,4 +650,4 @@ The final part is the `SEO Config` which has not been implemented as of yet, and
 
 ### Utils
 
-The starter includes various helper functions meant to make development easier. You can find all the helper functions in the `@/utils` directory. They should be pretty well documented within the comments for each function. If the usage of any is unclear, feel free to do a search with  <kbd>shift</kbd>+<kbd>cmd</kbd>+<kbd>f</kbd> to look for instances used throughout the application. 
+The starter includes various helper functions meant to make development easier. You can find all the helper functions in the `@/utils` directory. They should be pretty well documented within the comments for each function. If the usage of any is unclear, feel free to do a search with  <kbd>shift</kbd>+<kbd>cmd</kbd>+<kbd>f</kbd> to look for instances used throughout the application.
