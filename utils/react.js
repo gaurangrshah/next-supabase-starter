@@ -1,17 +1,7 @@
 import React from "react";
 import { theme } from "@/chakra/index";
+import { shuffle } from './array-ops';
 
-/**
- * Shuffles array in place. ES6 version
- * @param {Array} a items An array containing the items.
- */
-function shuffle(a) {
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
 
 export function borders(children, color = "red") {
   let colors = Object.keys(theme.colors[color]);
@@ -24,4 +14,35 @@ export function borders(children, color = "red") {
     const props = Object.assign({}, child.props, borderProps);
     return <child.type key={i} {...props} />;
   });
+}
+
+export function propper(children, childProps) {
+  // @SCOPE:  used to assign the same set of props to every child
+  return React.Children.map(children, (child, i) => {
+    const props = Object.assign({}, child.props, childProps);
+    return <child.type key={i} {...props} />;
+  });
+}
+
+export function combineProviders(providers) {
+  return providers.reduce((Combined, Provider) => ({ children }) => (
+    <Combined>
+      <Provider>{children}</Provider>
+    </Combined>
+  ));
+
+  /***
+   * USAGE:
+
+  const Providers2 = combineProviders(providers);
+
+  const App = () => {
+    return (
+      <Providers>
+        {children}
+      </Providers>
+    )
+  }
+
+   */
 }

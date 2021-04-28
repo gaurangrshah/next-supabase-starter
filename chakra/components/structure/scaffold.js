@@ -1,8 +1,7 @@
-import { Box } from '@chakra-ui/react';
+import { Box, ColorModeScript, Grid } from "@chakra-ui/react";
 
-import { ScaffoldProvider } from '@/chakra/contexts/scaffold-context';
-import { useScaffold } from '@/chakra/contexts/scaffold-context';
-import { constants } from '../../constants';
+import { ScaffoldProvider } from "@/chakra/contexts/scaffold-context";
+import { useScaffold } from "@/chakra/contexts/scaffold-context";
 
 function Scaffold({ children }) {
   const {
@@ -25,14 +24,14 @@ function Scaffold({ children }) {
         )}
         <Scaffold.Main {...{ theme }}>
           {children}
-          {typeof window !== 'undefined' && properties?.length
+          {typeof window !== "undefined" && properties?.length
             ? properties.map((key) => {
                 const Component = scaffold[key].Component;
                 return (
                   <Component key={scaffold[key].id} {...scaffold[key].props} />
                 );
               })
-            : ''}
+            : ""}
         </Scaffold.Main>
         {showFooter && footer && (
           <Scaffold.BottomBar {...{ theme }}>
@@ -44,7 +43,7 @@ function Scaffold({ children }) {
   );
 }
 
-function PageGrid({ theme = 'base', children, ...rest }) {
+function PageGrid({ theme = "default", children, ...rest }) {
   return (
     <Box {...pagegrid[theme]} {...rest}>
       {children}
@@ -52,7 +51,7 @@ function PageGrid({ theme = 'base', children, ...rest }) {
   );
 }
 
-function TopBar({ theme = 'base', children, ...rest }) {
+function TopBar({ theme = "default", children, ...rest }) {
   return (
     <Box {...topbar[theme]} {...rest}>
       {children}
@@ -60,7 +59,7 @@ function TopBar({ theme = 'base', children, ...rest }) {
   );
 }
 
-function MainContent({ theme = 'base', children, ...rest }) {
+function MainContent({ theme = "default", children, ...rest }) {
   return (
     <Box {...main[theme]} {...rest}>
       {children}
@@ -68,7 +67,7 @@ function MainContent({ theme = 'base', children, ...rest }) {
   );
 }
 
-function BottomBar({ theme = 'base', children, ...rest }) {
+function BottomBar({ theme = "default", children, ...rest }) {
   return (
     <Box {...bottombar[theme]} {...rest}>
       {children}
@@ -84,35 +83,34 @@ Scaffold.BottomBar = BottomBar;
 export default Scaffold;
 
 export const topbar = {
-  base: {
-    w: 'full',
-    flex: 'none',
-    mx: 'auto',
+  default: {
+    w: "full",
   },
 };
 
 export const pagegrid = {
-  base: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100vh',
+  default: {
+    display: "flex",
+    flexDirection: "column",
+    minH: "100vh",
+    height: "100%",
   },
 };
 
 export const main = {
-  base: {
-    as: 'main',
-    position: 'relative',
-    w: 'full',
-    maxW: 'full',
-    flex: '1 0 auto',
+  default: {
+    as: "main",
+    position: "relative",
+    w: "full",
+    maxW: "full",
+    flex: 1,
   },
 };
 
 export const bottombar = {
-  base: {
-    w: 'full',
-    flex: 'none',
-    mx: 'auto',
+  default: {
+    w: "full",
+    flex: 0,
+    mb: 0,
   },
 };

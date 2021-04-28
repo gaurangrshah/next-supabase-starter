@@ -1,6 +1,6 @@
-import { Header, Footer } from '@/chakra/components/structure/bars';
-import { HeaderContent } from '@/components/structure/header-content';
-import { FooterContent } from '@/components/structure/footer-content';
+import { Header, Footer } from "@/chakra/components/structure/bars";
+import { HeaderContent } from "@/components/structure/header-content";
+import { FooterContent } from "@/components/structure/footer-content";
 
 const appConfig = {
   details: {
@@ -41,14 +41,14 @@ appConfig.scaffold = {
   defaults: {
     header: {
       component: Header,
-      props: { HeaderComponent: HeaderContent, bg: '#FAD201' },
+      props: { HeaderComponent: HeaderContent, bg: "#FAD201" },
     },
     footer: {
       component: Footer,
-      props: { FooterComponent: FooterContent, bg: '#FAD201' },
+      props: { FooterComponent: FooterContent, bg: "#FAD201" },
     },
   },
-  theme: 'base',
+  theme: "default",
 };
 
 appConfig.seo = {};

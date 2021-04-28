@@ -1,22 +1,23 @@
-import Head from 'next/head';
-import { Box } from '@chakra-ui/react';
+import Head from "next/head";
+import { Flex } from "@chakra-ui/react";
+import { Splash } from "@/components/structure/splash";
 
 export default function Landing() {
   return (
     <>
       <Head>
         <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Box>
-        Test
+      <Flex m='auto auto'>
+        <Splash />
         {/* Protected content only visible to auhenticaed users
         <ProtectedRoute>
           Go to your <Link href='/dashboard/pages'>dashboard</Link>
         </ProtectedRoute>
         */}
-      </Box>
+      </Flex>
     </>
   );
 }

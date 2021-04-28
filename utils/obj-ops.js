@@ -46,3 +46,7 @@ export function removeRecurr(fn, obj) {
     ? obj.map((item) => removeRecurr(fn, item))
     : remove(fn, obj);
 }
+
+export function flattenObjects(arr) {
+  return arr.reduce((obj, item) => ((obj[item.key] = item.value), obj), {});
+}

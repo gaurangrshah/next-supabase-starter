@@ -1,38 +1,46 @@
-export function limit(arr, length) {
-  // @SCOPE:  limit the number of items in an array
+export function pluck(arr, keys) {
+  if (!Array.isArray(arr) || !Array.isArray(keys)) {
+    return console.error("please provie an arrao");
+  }
+  return keys.map((key) =>
+    arr.map((item) => (item[key] ? { [key]: item[key] } : {}))
+  );
+}
+
+export function flatten(arr) {
+  return arr.reduce((total, currentValue) => total.concat(currentValue), []);
+}
+
+export function limit(arr, c) {
   return arr.filter((x, i) => {
-    if (i <= length - 1) {
+    if (i <= c - 1) {
       return true;
     }
   });
 }
 
 export function arrayFill(length, val) {
-  // @SCOPE:  fill an array with any amount of the same values
   return new Array(length).fill(val);
 }
 
-/**
- * Shuffles array in place. ES6 version
- * @param {Array} a items An array containing the items.
- */
-export function shuffle(a) {
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
 export function uniqueData(data = []) {
-  // @SCOPE:  takes an array and removes all duplicate entries (shallow)
-
   return [
     ...data.reduce((map, obj) => map.set(obj.id, obj), new Map()).values(),
   ];
 }
 
-export function sortBy(arrToSort = [], values = ['id', 'title']) {
+export function groupBy(objArr, property) {
+  return objArr.reduce(function (total, obj) {
+    let key = obj[property];
+    if (!total[key]) {
+      total[key] = [];
+    }
+    total[key].push(obj);
+    return total;
+  }, {});
+}
+
+export function sortBy(arrToSort = [], values = ["id", "title"]) {
   let sorted;
 
   if (Array.isArray(values)) {
@@ -54,8 +62,11 @@ export function sortBy(arrToSort = [], values = ['id', 'title']) {
 }
 
 /**
+
   USAGE:
+
   sortBy(data = [], ['id', 'title'])
+
   takes in an array and upto two values to use to sort the array by
   TODO: refactor the comparison into its own function that we can then just call for each item inthe values array -- rather than only allowing up to two items in the array
  */
